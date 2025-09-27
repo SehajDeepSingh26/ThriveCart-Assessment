@@ -4,9 +4,15 @@
   "description": "Thrive cart assesment for Acme Widget Co",
   "license": "ISC",
   "author": "Sehajdeep Singh",
-  "type": "module",
+  "type": "ESNext",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   }
 }
