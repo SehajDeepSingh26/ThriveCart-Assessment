@@ -7,6 +7,7 @@ export class Baskets {
 
     constructor(
         private productCatalog: Map<string, Product>,
+        private deliveryRules: DeliveryRule[],
         private offers: Offer[]
     ) { }
 
@@ -31,5 +32,24 @@ export class Baskets {
         }
 
         return subtotal - discount;
+    }
+
+     private calculateDelivery(total: number): number {
+        for (const rule of this.deliveryRules) {
+            if (total >= rule.min && total < rule.max) {
+                return rule.charge;
+            }
+        }
+        return 0;
+    }
+
+    total(): number {
+        const subtotal = this.products.reduce((sum, p) => sum + p.price, 0);
+        const afterOffers = this.applyOffers(subtotal);
+        const delivery = this.calculateDelivery(afterOffers);
+
+        // Truncate to 2 decimal places without rounding
+        const total = afterOffers + delivery;
+        return Math.floor(total * 100) / 100;
     }
 }
